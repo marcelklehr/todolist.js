@@ -12,13 +12,12 @@
         <h1>TODO List</h1>
         <div class="unfinished">
             <h2>To do</h2>
+            <form>
             <ul>
+                <li><span>+</span><input type="text" value="" /></li>
             </ul>
+            </form>
         </div>
-        <form>
-            <input type="text" value="" />
-            <input type="submit" value="Add task"/>
-        </form>
         
         <div class="finished">
             <h2>Finished</h2>
@@ -30,7 +29,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
 <script src="jasmine/jasmine.js"></script>
 <script src="jasmine/jasmine-html.js"></script>    
-<script src="TodoList.js"></script>
-<script src="todo.js"></script>
+<script src="todolist.js"></script>
+<script type="application/javascript">
+  $(function () {
+    var todo_list = new TodoList();
+  });
+</script>
 <script src="test.js"></script>
 </html>

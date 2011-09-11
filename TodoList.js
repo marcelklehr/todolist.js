@@ -23,15 +23,16 @@ function TodoList() {
 
     function create_task_element(task_name) {
         var task_element = $("<li>");
-        var checkbox_element = $("<input type='checkbox' />");
+        var checkbox_element = $("<input type='checkbox' id='"+task_name+"' />");
+        var label_element = $("<label for='"+task_name+"'>").append(task_name);
         task_element.append(checkbox_element);
-        task_element.append(task_name);  
+        task_element.append(label_element);  
         task_element.append(create_delete_element(task_element));
         return task_element;
     }
     
     function create_delete_element(task_element) {
-        var a_delete_element = $("<a href='#'>[x]</a>");
+        var a_delete_element = $("<a href='#'>x</a>");
         a_delete_element.click(function(event){
             event.preventDefault();
             if (window.confirm("Do you want to delete this task?")) {
