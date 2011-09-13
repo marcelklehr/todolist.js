@@ -107,9 +107,10 @@ function TodoList() {
 			}
 			task = create_task_element(unescape(items[i]));
 			
-			if(sign == 'u') move_task_element_to_unfinished(task, true);
-			
-			if(sign == 'f') move_task_element_to_finished(task, true);
+			move_task_element_to_unfinished(task, true);
+			if(sign == 'f') {
+				$('input', task).trigger('click').trigger('change');
+			}
 		}
 	};
 	
