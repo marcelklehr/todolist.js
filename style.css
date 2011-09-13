@@ -16,6 +16,7 @@ h1{
     font-size: 200%;
     text-align: center;
     font-weight: bold;
+    margin-bottom:10px;
 }
 
 h2{
@@ -41,12 +42,12 @@ ul li {
     border-radius: 5px;
 }
 
-ul li:hover, ul li.add {
-     background-color:#ccc;
-}
-
 .finished ul li {
     background-color:transparent;
+}
+
+ul li:hover, ul li.add {
+     background-color:#ccc;
 }
 
 ul li label {
@@ -77,10 +78,6 @@ ul li:hover a{
     visibility: visible;
 }
 
-form{
-    margin-top: 10px;
-}
-
 form span {
     font-weight:bolder;
     font-size:130%;
@@ -93,6 +90,7 @@ form input {
     border:none;
     color:#555;
     font-size:14px;
+    width:90%;
 }
 
 .finished{
