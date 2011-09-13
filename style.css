@@ -25,13 +25,12 @@ h2{
 }
 
 ul{
-    padding-left: 0;
-    width:70%;
+    margin-left:10px;
+    width:75%;
     list-style: none;
 }
 
 ul li {
-    clear:both;
     height:25px;
     padding-top:5px;
     background-color:#ccc;
@@ -44,16 +43,16 @@ ul li {
 ul li a{
     display: block;
     float:right;
-    width:10px;height:10px;
+    width:15px;height:15px;
     margin-right:5px;
-    color:grey;
+    color:#eee;
     text-decoration: none;
     font-size:125%;
     visibility: hidden;
 }
 
 ul li a:hover {
-    color: red;
+    color: #fff;
 }
 
 ul li:hover a{
@@ -66,15 +65,14 @@ form{
 
 form span {
     font-weight:bolder;
-    font-size:125%;
-    color:green;
+    font-size:130%;
+    color:#fff;
     margin:5px;
 }
 
 form input {
     background-color:transparent;
     border:none;
-    display:inline-block;
 }
 
 .finished{

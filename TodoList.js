@@ -8,6 +8,14 @@ function TodoList() {
         process_new_task_input(input_new_task);
     });
     
+    if(!window.location.hash)
+    {
+	onchange();
+    }else if(window.location.hash != serialize())
+    {
+	unserialize(window.location.hash.substr(1));
+    }
+    
     input_new_task.focus();
 
     function process_new_task_input(input) { 
@@ -37,26 +45,77 @@ function TodoList() {
             event.preventDefault();
             if (window.confirm("Do you want to delete this task?")) {
                 task_element.remove();
+                onchange();
             }
         });
         return a_delete_element;
     }
     
-    function move_task_element_to_finished(task_element) {
+    function move_task_element_to_finished(task_element, noupdate) {
         var checkbox_element = $("input", task_element);
         checkbox_element.unbind("change");
         checkbox_element.bind("change", function () {
             move_task_element_to_unfinished(task_element);
         });
         finished_list_element.append(task_element);
+        if(!noupdate) onchange();
     }
 
-    function move_task_element_to_unfinished(task_element) {
+    function move_task_element_to_unfinished(task_element, noupdate) {
         var checkbox_element = $("input", task_element);
         checkbox_element.unbind("change");
         checkbox_element.bind("change", function() {
             move_task_element_to_finished(task_element);
         });
         unfinished_list_element.append(task_element);
+        if(!noupdate) onchange();
+    }
+    
+    function onchange()
+    {
+	l = window.location;
+	window.location = l.protocol+'//'+l.hostname+l.pathname+'?'+l.search+'#'+serialize();
+    }
+    
+    function serialize() {
+	var dump, dumped;
+	dump = function(i,e) {
+		e = $(e);
+		dumped = dumped + '&' + escape(escape(e.attr('for')+''));
+	};
+	srlz = function (list) {
+		dumped='';
+		$('>li label', list).each(dump);
+		return dumped;
+	}
+	
+	return 'u'+srlz(unfinished_list_element)+'|f'+srlz(finished_list_element);
+    }
+    
+    function unserialize(string)
+    {
+	restore = function(s)
+	{
+		var sign;
+		items = s.split('&');
+		for(var i=0; items.length > i; i++)
+		{
+			if(i==0)
+			{
+				sign = items[i];
+				continue;
+			}
+			task = create_task_element(unescape(items[i]));
+			
+			if(sign == 'u') move_task_element_to_unfinished(task, true);
+			
+			if(sign == 'f') move_task_element_to_finished(task, true);
+		}
+	};
+	
+	list = string.split('|');
+	restore(list[0]);
+	restore(list[1]);
+	
     }
 }
