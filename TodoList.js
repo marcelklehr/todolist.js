@@ -1,4 +1,9 @@
-function TodoList() {
+function TodoList(options) {
+    var options = $.extend({
+	sortable: true,
+	onchange: function (finished, unfinished) {},
+    },options);
+    
     var finished_list_element = $(".finished ul");
     var unfinished_list_element = $(".unfinished ul");
     var input_new_task = $("input[type=text]");
@@ -8,6 +13,7 @@ function TodoList() {
         process_new_task_input(input_new_task);
     });
     
+    // detect pre-loaded hash
     if(!window.location.hash)
     {
 	onchange();
@@ -17,6 +23,14 @@ function TodoList() {
     }
     
     input_new_task.focus();
+    
+    if(options.sortable == true)
+    {
+	    unfinished_list_element.sortable({
+		items:'li:not(.add)',
+		update: onchange
+	    });
+    }
 
     function process_new_task_input(input) { 
         var task_name = input.val();
@@ -73,8 +87,15 @@ function TodoList() {
     
     function onchange()
     {
+	// change url.hash
 	l = window.location;
 	window.location = l.protocol+'//'+l.hostname+l.pathname+'?'+l.search+'#'+serialize();
+	
+	// invoke onchange
+	if(typeof(options.onchange) === 'function')
+	{
+		options.onchange(unfinished_list_element, finished_list_element);
+	}
     }
     
     function serialize() {
@@ -89,7 +110,9 @@ function TodoList() {
 		return dumped;
 	}
 	
-	return 'u'+srlz(unfinished_list_element)+'|f'+srlz(finished_list_element);
+	hash = 'u'+srlz(unfinished_list_element)+'|f'+srlz(finished_list_element);
+	if(hash == 'U|f') return '';
+	return hash;
     }
     
     function unserialize(string)

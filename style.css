@@ -42,12 +42,12 @@ ul li {
     border-radius: 5px;
 }
 
-.finished ul li {
-    background-color:transparent;
-}
-
 ul li:hover, ul li.add {
      background-color:#ccc;
+}
+
+.finished ul li {
+    background-color:transparent;
 }
 
 ul li label {
